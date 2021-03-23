@@ -1,0 +1,9 @@
+.e {
+  border: 2px solid red;
+}
+
+.c {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
