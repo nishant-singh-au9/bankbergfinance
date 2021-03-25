@@ -1,34 +1,34 @@
 import React from "react";
+import HomeNavBar from "../Layout/homeNavBar";
 import "./home.css";
-import Logo from "../../logo.png";
+import Login from "../User/login";
+import Footer from "./footer";
+// import Bank from "./bank.jpg";
 
-const Home = () => {
-  return (
-    <>
-      <div className="conatiner">
-        <div className="row">
-          <div className="col-md-6 logodiv">
-            <img className="img-fluid" src={Logo} alt="logo" />
-          </div>
-          <div className="col-md-6 stay">
-            <div>
-              <h1>Welcome</h1>
-              <p>
-                I am working hard to bring you a platform for all your banking
-                needs, This is a MERN Stack project, and will be almost ready to
-                use from next week.
-              </p>
-              <h5>nishantbihar529@gmail.com</h5>
-              <p>
-                Feedbacks and suggesations are always appreciated, ThankYou.
-              </p>
-              <h1>Stay Tuned</h1>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
-  );
-};
+class Home extends React.Component {
+  constructor() {
+    super();
+    this.state = {};
+  }
 
+  RenderHome = () => {
+    if (sessionStorage.getItem("ltk")) {
+      this.props.history.push("/dashboard");
+    } else {
+      return (
+        <>
+          <HomeNavBar />
+          <section>
+            <Login history={this.props.history} />
+          </section>
+          <Footer />
+        </>
+      );
+    }
+  };
+
+  render() {
+    return <div className="homediv">{this.RenderHome()}</div>;
+  }
+}
 export default Home;

@@ -1,13 +1,12 @@
-.stay {
-  background-color: yellow;
+.homefootercol {
   padding: 50px;
-  display: flex;
-  justify-content: center;
   align-items: center;
 }
 
-.logodiv {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.sociallinks {
+  padding: 10px;
+}
+
+html {
+  scroll-behavior: smooth;
 }
