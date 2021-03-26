@@ -27,7 +27,7 @@ export function setUser(data) {
 
 export function registerUser(user) {
   return function (dispatch) {
-    fetch("http://localhost:5000/api/users/register", {
+    fetch("https://bankbergfinanceapi.herokuapp.com/api/users/register", {
       method: "POST",
       headers: {
         Accept: "application/json",
