@@ -16,6 +16,7 @@ class Login extends Component {
       password: "12345678",
       err: ""
     };
+    this.err1 = "";
   }
 
   emailChangeHandler = (e) => {
@@ -27,7 +28,7 @@ class Login extends Component {
 
   passwordChangeHandler = (e) => {
     this.setState({
-      password: e.target.value.email,
+      password: e.target.value,
       err: ""
     });
   };
@@ -53,7 +54,9 @@ class Login extends Component {
 
   renderLogin = () => {
     if (this.props.passerr || this.props.emailerr) {
-      document.getElementById("loginbtn").innerText = "Login";
+      if (document.getElementById("loginbtn")) {
+        document.getElementById("loginbtn").innerText = "Login";
+      }
     }
     if (sessionStorage.getItem("ltk")) {
       this.props.history.push("/dashboard");
@@ -72,7 +75,7 @@ class Login extends Component {
                   }}
                 >
                   <center>
-                    <img src={Logo} alt="logo" className="img-fluid homelogo" />
+                    <img src={Logo} alt="logo" className="homelogo" />
                     <h1 style={{ marginTop: "5px" }}>Bank Berg Finance</h1>
                     <p>One Stop Solution For All Your Banking Needs</p>
                   </center>

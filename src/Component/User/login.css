@@ -1,8 +1,8 @@
 .loginbox {
-  height: 420px;
+  height: auto;
   width: 320px;
   background-color: yellow;
-  padding: 50px 30px 0 30px;
+  padding: 50px 30px 50px 30px;
 }
 
 .formdiv {
@@ -35,6 +35,8 @@
 }
 
 .homelogo {
+  width: 100%;
+  height: auto;
   max-width: 380px;
 }
 

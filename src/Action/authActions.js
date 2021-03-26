@@ -24,3 +24,27 @@ export function setUser(data) {
     payload: data
   };
 }
+
+export function registerUser(user) {
+  return function (dispatch) {
+    fetch("http://localhost:5000/api/users/register", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(user)
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch(createUser(data));
+      });
+  };
+}
+
+export function createUser(data) {
+  return {
+    type: "USER_REGISTER",
+    payload: data
+  };
+}
