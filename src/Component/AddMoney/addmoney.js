@@ -16,7 +16,12 @@ class AddMoney extends React.Component {
     }
 
     submitHandler = () => {
-        this.props.dispatch(addMoneyAction(this.state))
+        document.getElementById('loginbtn').innerText="Adding Money Please Wait"
+        let amt = {
+            amount : parseInt(this.state.amount)
+        }
+        console.log()
+        this.props.dispatch(addMoneyAction(amt))
     }
 
     amountchangeHndler = (event) => {
@@ -69,7 +74,6 @@ class AddMoney extends React.Component {
     };
 
     render() {
-        console.log("props", this.props)
         return (
             <>
                 <DashNav />
@@ -89,7 +93,6 @@ class AddMoney extends React.Component {
         })
             .then((res) => res.json())
             .then((data) => {
-                console.log(data)
                 this.setState({
                     account: data
                 });
@@ -98,7 +101,6 @@ class AddMoney extends React.Component {
 }
 
 function mapStatetoProps(state) {
-    console.log("state>>", state)
     if(!state.AddMoney){
         return {
             success: ""

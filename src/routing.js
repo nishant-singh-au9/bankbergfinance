@@ -8,6 +8,7 @@ import Dashboard from "./Component/Dashboard/dashboard";
 import Logout from "./Component/Logout/logout"
 import DebitCard from "./Component/Cards/debitcard"
 import AddMoney from "./Component/AddMoney/addmoney"
+import SendMoney from "./Component/sendMoney/sendMoney"
 
 const Routing = () => {
   return (
@@ -21,6 +22,7 @@ const Routing = () => {
         <Route path="/logout" component={Logout} />
         <Route path="/debitcard" component={DebitCard} />
         <Route path="/addmoney" component={AddMoney} />
+        <Route path="/sendmoney" component={SendMoney} />
       </BrowserRouter>
     </Provider>
   );
