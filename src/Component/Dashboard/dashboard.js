@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { snapShotUser } from "../../Action/snapAction";
 import Greet from "../Greet/greet";
 import Offers from "../Offers/offers"
+import Loader from "../../loader.svg";
 
 class Dashboard extends Component {
   constructor() {
@@ -31,6 +32,11 @@ class Dashboard extends Component {
           </>
         );
       } else {
+        return(
+          <>
+          <center><img src={Loader} alt="loader"/></center>
+          </>
+        )
       }
     } else {
       this.props.history.push("/login");

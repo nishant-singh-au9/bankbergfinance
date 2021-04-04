@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import DashNav from "../Layout/dashNav";
 import { addMoneyAction } from "../../Action/addMoneyAction"
+import Loader from "../../loader.svg";
 
 class AddMoney extends React.Component {
     constructor() {
@@ -16,9 +17,9 @@ class AddMoney extends React.Component {
     }
 
     submitHandler = () => {
-        document.getElementById('loginbtn').innerText="Adding Money Please Wait"
+        document.getElementById('loginbtn').innerText = "Adding Money Please Wait"
         let amt = {
-            amount : parseInt(this.state.amount)
+            amount: parseInt(this.state.amount)
         }
         console.log()
         this.props.dispatch(addMoneyAction(amt))
@@ -33,38 +34,46 @@ class AddMoney extends React.Component {
     renderaddmoney = () => {
         if (sessionStorage.getItem("ltk")) {
             if (this.props.success === "") {
-                return (
-                    <>
-                        <div className="loginform">
-                            <div className="card" id="logincard">
-                                <center>
-                                    <h2>Add Money</h2>
-                                </center>
-                                <div className="form-group">
-                                    <h4>Hi {this.state.account.name},</h4>
-                                    <span>Current Balance: {this.state.account.balance}</span>
-                                    <p>Money will be added to Account: {this.state.account.account}</p>
-                                    <label for="exampleInputPassword1">Amount:</label>
-                                    <input
-                                        type="number"
-                                        className="form-control"
-                                        id="exampleInputPassword1"
-                                        placeholder="Enter Amount"
-                                        onChange={this.amountchangeHndler}
-                                        value={this.state.amount}
-                                    />
+                if (this.state.account) {
+                    return (
+                        <>
+                            <div className="loginform">
+                                <div className="card" id="logincard">
+                                    <center>
+                                        <h2>Add Money</h2>
+                                    </center>
+                                    <div className="form-group">
+                                        <h4>Hi {this.state.account.name},</h4>
+                                        <span>Current Balance: {this.state.account.balance}</span>
+                                        <p>Money will be added to Account: {this.state.account.account}</p>
+                                        <label for="exampleInputPassword1">Amount:</label>
+                                        <input
+                                            type="number"
+                                            className="form-control"
+                                            id="exampleInputPassword1"
+                                            placeholder="Enter Amount"
+                                            onChange={this.amountchangeHndler}
+                                            value={this.state.amount}
+                                        />
+                                    </div>
+                                    <button
+                                        className="btn btn-danger"
+                                        id="loginbtn"
+                                        onClick={this.submitHandler}
+                                    >
+                                        Add Money
+                                    </button>
                                 </div>
-                                <button
-                                    className="btn btn-danger"
-                                    id="loginbtn"
-                                    onClick={this.submitHandler}
-                                >
-                                    Add Money
-                  </button>
                             </div>
-                        </div>
-                    </>
-                );
+                        </>
+                    );
+                } else {
+                    return (
+                        <>
+                            <center><img src={Loader} alt="loader" /></center>
+                        </>
+                    )
+                }
             } else {
                 this.props.history.push("/dashboard");
             }
@@ -101,11 +110,11 @@ class AddMoney extends React.Component {
 }
 
 function mapStatetoProps(state) {
-    if(!state.AddMoney){
+    if (!state.AddMoney) {
         return {
             success: ""
         }
-    }else{
+    } else {
         success: "Money Added"
     }
 }

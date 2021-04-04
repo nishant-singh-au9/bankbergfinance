@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import DashNav from "../Layout/dashNav";
 import { sendMoneyAction } from "../../Action/sendMoneyAction"
+import Loader from "../../loader.svg";
 
 class SendMoney extends React.Component {
     constructor() {
@@ -19,20 +20,20 @@ class SendMoney extends React.Component {
     }
 
     submitHandler = () => {
-        let {amount, receipnt, transactionPassword} = this.state;
-        if(!amount || !receipnt || !transactionPassword){
+        let { amount, receipnt, transactionPassword } = this.state;
+        if (!amount || !receipnt || !transactionPassword) {
             this.setState({
                 err: "Please Fill Every Feild"
             })
-        }else{
+        } else {
             document.getElementById('loginbtn').innerText = "Sending Money Please Wait"
-        let amt = {
-            amount: parseInt(this.state.amount),
-            account: this.state.receipnt,
-            transactionPassword: this.state.transactionPassword
-        }
-        console.log()
-        this.props.dispatch(sendMoneyAction(amt))
+            let amt = {
+                amount: parseInt(this.state.amount),
+                account: this.state.receipnt,
+                transactionPassword: this.state.transactionPassword
+            }
+            console.log()
+            this.props.dispatch(sendMoneyAction(amt))
         }
     }
 
@@ -58,63 +59,71 @@ class SendMoney extends React.Component {
     rendersendmoney = () => {
         if (sessionStorage.getItem("ltk")) {
             if (this.props.success === "") {
-                return (
-                    <>
-                        <div className="loginform">
-                            <div className="card" id="logincard">
-                                <center>
-                                    <h2>Send Money</h2>
-                                </center>
-                                <div className="form-group">
-                                    <h4>Hi {this.state.account.name},</h4>
-                                    <span>Current Balance: {this.state.account.balance}</span>
-                                    <p>Money will be debited from Account: {this.state.account.account}</p>
+                if (this.state.account) {
+                    return (
+                        <>
+                            <div className="loginform">
+                                <div className="card" id="logincard">
                                     <center>
-                                        <p style={{color:"red", fontWeight:"bold"}}>{this.props.err}</p>
-                                        <p style={{color:"red", fontWeight:"bold"}}>{this.state.err}</p>
-                                        <p style={{color:"green", fontWeight:"bold"}}>{this.props.succ}</p>
+                                        <h2>Send Money</h2>
                                     </center>
-                                    <label for="exampleInputPassword1"><b>Amount:</b></label>
-                                    <input
-                                        type="number"
-                                        className="form-control"
-                                        id="exampleInputPassword1"
-                                        placeholder="Enter Amount"
-                                        onChange={this.amountchangeHndler}
-                                        value={this.state.amount}
-                                    />
+                                    <div className="form-group">
+                                        <h4>Hi {this.state.account.name},</h4>
+                                        <span>Current Balance: {this.state.account.balance}</span>
+                                        <p>Money will be debited from Account: {this.state.account.account}</p>
+                                        <center>
+                                            <p style={{ color: "red", fontWeight: "bold" }}>{this.props.err}</p>
+                                            <p style={{ color: "red", fontWeight: "bold" }}>{this.state.err}</p>
+                                            <p style={{ color: "green", fontWeight: "bold" }}>{this.props.succ}</p>
+                                        </center>
+                                        <label for="exampleInputPassword1"><b>Amount:</b></label>
+                                        <input
+                                            type="number"
+                                            className="form-control"
+                                            id="exampleInputPassword1"
+                                            placeholder="Enter Amount"
+                                            onChange={this.amountchangeHndler}
+                                            value={this.state.amount}
+                                        />
 
-                                    <label for="exampleInputPassword1"><b>Recepient Account Number:</b></label>
-                                    <input
-                                        type="number"
-                                        className="form-control"
-                                        id="exampleInputPassword1"
-                                        placeholder="Account Number"
-                                        onChange={this.receipntchangeHndler}
-                                        value={this.state.receipnt}
-                                    />
+                                        <label for="exampleInputPassword1"><b>Recepient Account Number:</b></label>
+                                        <input
+                                            type="number"
+                                            className="form-control"
+                                            id="exampleInputPassword1"
+                                            placeholder="Account Number"
+                                            onChange={this.receipntchangeHndler}
+                                            value={this.state.receipnt}
+                                        />
 
-                                    <label for="exampleInputPassword1"><b>Transaction Password:</b></label>
-                                    <input
-                                        type="password"
-                                        className="form-control"
-                                        id="exampleInputPassword1"
-                                        placeholder="Enter Transaction Password"
-                                        onChange={this.transactionPasswordchangeHndler}
-                                        value={this.state.transactionPassword}
-                                    />
+                                        <label for="exampleInputPassword1"><b>Transaction Password:</b></label>
+                                        <input
+                                            type="password"
+                                            className="form-control"
+                                            id="exampleInputPassword1"
+                                            placeholder="Enter Transaction Password"
+                                            onChange={this.transactionPasswordchangeHndler}
+                                            value={this.state.transactionPassword}
+                                        />
+                                    </div>
+                                    <button
+                                        className="btn btn-danger"
+                                        id="loginbtn"
+                                        onClick={this.submitHandler}
+                                    >
+                                        Send Money
+                      </button>
                                 </div>
-                                <button
-                                    className="btn btn-danger"
-                                    id="loginbtn"
-                                    onClick={this.submitHandler}
-                                >
-                                    Send Money
-                  </button>
                             </div>
-                        </div>
-                    </>
-                );
+                        </>
+                    );
+                } else {
+                    return (
+                        <>
+                            <center><img src={Loader} alt="loader" /></center>
+                        </>
+                    )
+                }
             } else {
                 this.props.history.push("/dashboard");
             }
@@ -149,7 +158,7 @@ class SendMoney extends React.Component {
             });
     }
 
-    componentDidUpdate(){
+    componentDidUpdate() {
         fetch("https://bankbergfinanceapi.herokuapp.com/api/users/userInfo", {
             method: "GET",
             headers: {
@@ -160,7 +169,9 @@ class SendMoney extends React.Component {
         })
             .then((res) => res.json())
             .then((data) => {
-                document.getElementById('loginbtn').innerText = "Send Money"
+                if(document.getElementById('loginbtn')){
+                    document.getElementById('loginbtn').innerText = "Send Money"
+                }
                 this.setState({
                     account: data
                 });

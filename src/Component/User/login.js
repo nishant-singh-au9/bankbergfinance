@@ -46,7 +46,7 @@ class Login extends Component {
           email: this.state.email,
           password: this.state.password
         };
-        document.getElementById("loginbtn").innerText = "Taking you in..";
+        document.getElementById("loginbtnl").innerText = "Taking you in..";
         this.props.dispatch(loginUser(user));
       }
     }
@@ -54,8 +54,8 @@ class Login extends Component {
 
   renderLogin = () => {
     if (this.props.passerr || this.props.emailerr) {
-      if (document.getElementById("loginbtn")) {
-        document.getElementById("loginbtn").innerText = "Login";
+      if (document.getElementById("loginbtnl")) {
+        document.getElementById("loginbtnl").innerText = "Login";
       }
     }
     if (sessionStorage.getItem("ltk")) {
@@ -111,7 +111,7 @@ class Login extends Component {
                     <br />
                     <button
                       className="btn btn-primary"
-                      id="loginbtn"
+                      id="loginbtnl" 
                       onClick={this.LoginHandler}
                     >
                       Login
