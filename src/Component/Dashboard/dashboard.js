@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { snapShotUser } from "../../Action/snapAction";
 import Greet from "../Greet/greet";
+import Offers from "../Offers/offers"
 
 class Dashboard extends Component {
   constructor() {
@@ -24,6 +25,7 @@ class Dashboard extends Component {
                   <h5>Account Number - {this.props.data.account}</h5>
                   <p>Current Balance - ₹{this.props.data.balance}/-</p>
                 </div>
+                <Offers/>
               </div>
             </div>
           </>

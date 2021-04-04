@@ -66,7 +66,7 @@ const DashNav = () => {
               <div className="dropdown">
                 <button className="dropbtn">SERVICES</button>
                 <div className="dropdown-content">
-                  <Link to="/dashboard">view</Link>
+                <Link className="navlink" to="/addmoney">Add Money</Link>
                 </div>
               </div>
             </li>

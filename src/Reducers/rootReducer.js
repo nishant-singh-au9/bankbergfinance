@@ -3,6 +3,7 @@ import Login from "./loginReducer";
 import Register from "./registerReducer";
 import Snap from "./snapReducer";
 import DebitCard from "./debitCardReducer"
-const rootReducer = combineReducers({ Login, Register, Snap, DebitCard });
+import AddMoney from "./addmoneyReducer"
+const rootReducer = combineReducers({ Login, Register, Snap, DebitCard, AddMoney});
 
 export default rootReducer;
