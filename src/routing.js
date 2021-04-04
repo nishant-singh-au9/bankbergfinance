@@ -9,6 +9,7 @@ import Logout from "./Component/Logout/logout"
 import DebitCard from "./Component/Cards/debitcard"
 import AddMoney from "./Component/AddMoney/addmoney"
 import SendMoney from "./Component/sendMoney/sendMoney"
+import Transaction from "./Component/Transaction/getTransaction"
 
 const Routing = () => {
   return (
@@ -23,6 +24,7 @@ const Routing = () => {
         <Route path="/debitcard" component={DebitCard} />
         <Route path="/addmoney" component={AddMoney} />
         <Route path="/sendmoney" component={SendMoney} />
+        <Route path="/transactions" component={Transaction} />
       </BrowserRouter>
     </Provider>
   );

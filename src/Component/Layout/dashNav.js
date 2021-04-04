@@ -69,6 +69,8 @@ const DashNav = () => {
                 <Link className="navlink" to="/addmoney">Add Money</Link>
                 <br/>
                 <Link className="navlink" to="/sendmoney">Send Money</Link>
+                <br/>
+                <Link className="navlink" to="/transactions">Get Statements</Link>
                 </div>
               </div>
             </li>
