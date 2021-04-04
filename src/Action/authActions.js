@@ -48,3 +48,9 @@ export function createUser(data) {
     payload: data
   };
 }
+
+
+export const logoutUser = () => dispatch => {
+  sessionStorage.removeItem("ltk");
+  dispatch(setUser({}));
+};
