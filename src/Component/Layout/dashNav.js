@@ -58,7 +58,11 @@ const DashNav = () => {
               <div className="dropdown">
                 <button className="dropbtn">PAYMENTS</button>
                 <div className="dropdown-content">
-                  <Link to="/dashboard">view</Link>
+                <Link className="navlink" to="/mobilerecharge">Mobile Recharge</Link>
+                <br/>
+                <Link className="navlink" to="/paybill">Bill Payments</Link>
+                <br/>
+                <Link className="navlink" to="/sendmoney">Send Money</Link>
                 </div>
               </div>
             </li>
@@ -67,8 +71,7 @@ const DashNav = () => {
                 <button className="dropbtn">SERVICES</button>
                 <div className="dropdown-content">
                 <Link className="navlink" to="/addmoney">Add Money</Link>
-                <br/>
-                <Link className="navlink" to="/sendmoney">Send Money</Link>
+                
                 <br/>
                 <Link className="navlink" to="/transactions">Get Statements</Link>
                 </div>
@@ -78,7 +81,7 @@ const DashNav = () => {
               <div className="dropdown">
                 <button className="dropbtn">INVESTMENTS</button>
                 <div className="dropdown-content">
-                  <Link to="/dashboard">view</Link>
+                  <Link to="/dashboard" className="navlink">view</Link>
                 </div>
               </div>
             </li>

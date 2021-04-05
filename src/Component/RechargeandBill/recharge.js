@@ -1,62 +1,50 @@
-import React from "react";
-import "./sendMoney.css";
+import React from 'react';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import "./recharge.css"
 import DashNav from "../Layout/dashNav";
-import { sendMoneyAction } from "../../Action/sendMoneyAction"
 import Loader from "../../loader.svg";
 
-class SendMoney extends React.Component {
+class Recharge extends React.Component {
     constructor() {
         super();
 
         this.state = {
-            amount: "",
-            receipnt: "",
-            transactionPassword: "",
-            account: "",
-            err: ""
-        };
-    }
-
-    submitHandler = () => {
-        let { amount, receipnt, transactionPassword } = this.state;
-        if (!amount || !receipnt || !transactionPassword) {
-            this.setState({
-                err: "Please Fill Every Feild"
-            })
-        } else {
-            document.getElementById('loginbtn').innerText = "Sending Money Please Wait"
-            let amt = {
-                amount: parseInt(this.state.amount),
-                account: this.state.receipnt,
-                transactionPassword: this.state.transactionPassword
-            }
-            console.log()
-            this.props.dispatch(sendMoneyAction(amt))
+            amount : 150,
+            opertaor : "Airtel",
+            number : "7979868224",
+            circle : "Bihar Jharkhand",
+            type : "Mobile Recharge",
+            err: "",
+            account: ""
         }
     }
 
     amountchangeHndler = (event) => {
         this.setState({
-            err: "",
-            amount: event.target.value
-        });
-    };
-    receipntchangeHndler = (event) => {
-        this.setState({
-            err: "",
-            receipnt: event.target.value
-        });
-    };
-    transactionPasswordchangeHndler = (event) => {
-        this.setState({
-            err: "",
-            transactionPassword: event.target.value
-        });
-    };
+            amount: event.target.value, err: ""
+        })
+    }
 
-    rendersendmoney = () => {
+    operatorchangeHndler = (event) => {
+        this.setState({
+            operator: event.target.value, err: ""
+        })
+    }
+
+    numberchangeHndler = (event) => {
+        this.setState({
+            number: event.target.value, err: ""
+        })
+    }
+
+    circlechangeHndler = (event) => {
+        this.setState({
+            circle: event.target.value, err: ""
+        })
+    }
+
+    renderRecharge = () => {
         if (sessionStorage.getItem("ltk")) {
             if (this.props.success === "") {
                 if (this.state.account) {
@@ -69,7 +57,7 @@ class SendMoney extends React.Component {
                                     </center>
                                     <div className="form-group">
                                         <h4>Hi {this.state.account.name},</h4>
-                                        <span>Current Balance: ₹{this.state.account.balance}/-</span>
+                                        <span>Current Balance: {this.state.account.balance}</span>
                                         <p>Money will be debited from Account: {this.state.account.account}</p>
                                         <center>
                                             <p style={{ color: "red", fontWeight: "bold" }}>{this.props.err}</p>
@@ -130,15 +118,15 @@ class SendMoney extends React.Component {
         } else {
             this.props.history.push("/login");
         }
-    };
-
+    
+    }
     render() {
         return (
             <>
-                <DashNav />
-                {this.rendersendmoney()}
+            <DashNav/>
+            {this.renderRecharge()}
             </>
-        );
+        )
     }
 
     componentDidMount() {
@@ -177,9 +165,12 @@ class SendMoney extends React.Component {
                 });
             });
     }
+        
 }
 
+
 function mapStatetoProps(state) {
+    console.log(state);
     if (!state.SendMoney) {
         return {
             err: "",
@@ -198,8 +189,8 @@ function mapStatetoProps(state) {
     }
 }
 
-SendMoney.protoType = {
-    dispatch: PropTypes.func,
+Recharge.protoType = {
+    dispatch: PropTypes.func
 };
 
-export default connect(mapStatetoProps)(SendMoney);
+export default connect(mapStatetoProps)(Recharge);

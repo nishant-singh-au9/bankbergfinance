@@ -116,11 +116,7 @@ class Transaction extends React.Component {
         )
     }
     componentDidMount() {
-        let date = {
-            from: "2021-03-17",
-            to: "2021-04-06"
-        }
-        this.props.dispatch(getTransaction(date))
+        this.props.dispatch(getTransaction())
     }
 }
 

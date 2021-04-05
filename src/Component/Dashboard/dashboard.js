@@ -7,6 +7,7 @@ import { snapShotUser } from "../../Action/snapAction";
 import Greet from "../Greet/greet";
 import Offers from "../Offers/offers"
 import Loader from "../../loader.svg";
+import Trans from "./trans"
 
 class Dashboard extends Component {
   constructor() {
@@ -24,7 +25,8 @@ class Dashboard extends Component {
                 {Greet(this.props.data.name)}
                 <div className="col dashcol">
                   <h5>Account Number - {this.props.data.account}</h5>
-                  <p>Current Balance - ₹{this.props.data.balance}/-</p>
+                  <p>Current Balance - <b>₹{this.props.data.balance}/-</b></p>
+                  <Trans trans={this.props.data.Transactions.reverse()}/>
                 </div>
                 <Offers/>
               </div>

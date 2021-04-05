@@ -44,7 +44,7 @@ class AddMoney extends React.Component {
                                     </center>
                                     <div className="form-group">
                                         <h4>Hi {this.state.account.name},</h4>
-                                        <span>Current Balance: {this.state.account.balance}</span>
+                                        <span>Current Balance: ₹{this.state.account.balance}/-</span>
                                         <p>Money will be added to Account: {this.state.account.account}</p>
                                         <label for="exampleInputPassword1">Amount:</label>
                                         <input
