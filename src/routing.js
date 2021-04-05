@@ -11,6 +11,7 @@ import AddMoney from "./Component/AddMoney/addmoney"
 import SendMoney from "./Component/sendMoney/sendMoney"
 import Transaction from "./Component/Transaction/getTransaction"
 import Recharge from "./Component/RechargeandBill/recharge"
+import Bill from "./Component/RechargeandBill/bill"
 
 const Routing = () => {
   return (
@@ -27,6 +28,7 @@ const Routing = () => {
         <Route path="/sendmoney" component={SendMoney} />
         <Route path="/transactions" component={Transaction} />
         <Route path="/mobilerecharge" component={Recharge} />
+        <Route path="/paybill" component={Bill} />
       </BrowserRouter>
     </Provider>
   );
