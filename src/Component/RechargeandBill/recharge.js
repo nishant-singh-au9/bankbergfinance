@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import "./recharge.css"
 import DashNav from "../Layout/dashNav";
 import Loader from "../../loader.svg";
+import {rechargeandbill} from "../../Action/RechargeBillAction"
 
 class Recharge extends React.Component {
     constructor() {
@@ -11,12 +12,13 @@ class Recharge extends React.Component {
 
         this.state = {
             amount : 150,
-            opertaor : "Airtel",
+            operator : "",
             number : "7979868224",
-            circle : "Bihar Jharkhand",
-            type : "Mobile Recharge",
+            circle : "",
+            type : "",
             err: "",
-            account: ""
+            account: "",
+            transactionPassword: "987654321"
         }
     }
 
@@ -27,6 +29,7 @@ class Recharge extends React.Component {
     }
 
     operatorchangeHndler = (event) => {
+        console.log(event.target.value)
         this.setState({
             operator: event.target.value, err: ""
         })
@@ -39,6 +42,7 @@ class Recharge extends React.Component {
     }
 
     circlechangeHndler = (event) => {
+        console.log(event.target.value)
         this.setState({
             circle: event.target.value, err: ""
         })
@@ -53,7 +57,7 @@ class Recharge extends React.Component {
                             <div className="loginform">
                                 <div className="card" id="logincard">
                                     <center>
-                                        <h2>Send Money</h2>
+                                        <h2>Mobile Recharge</h2>
                                     </center>
                                     <div className="form-group">
                                         <h4>Hi {this.state.account.name},</h4>
@@ -64,6 +68,19 @@ class Recharge extends React.Component {
                                             <p style={{ color: "red", fontWeight: "bold" }}>{this.state.err}</p>
                                             <p style={{ color: "green", fontWeight: "bold" }}>{this.props.succ}</p>
                                         </center>
+
+                                        <label for="exampleInputPassword1"><b>Number:</b></label>
+                                        <input
+                                            type="number"
+                                            className="form-control"
+                                            id="exampleInputPassword1"
+                                            placeholder="Enter Mobile Number"
+                                            onChange={this.numberchangeHndler}
+                                            value={this.state.number}
+                                            style={{marginBottom: "10px"}}
+                                        /> 
+                                        {this.renderOperator()}
+                                        {this.renderRegion()}<br/>
                                         <label for="exampleInputPassword1"><b>Amount:</b></label>
                                         <input
                                             type="number"
@@ -72,34 +89,14 @@ class Recharge extends React.Component {
                                             placeholder="Enter Amount"
                                             onChange={this.amountchangeHndler}
                                             value={this.state.amount}
-                                        />
-
-                                        <label for="exampleInputPassword1"><b>Recepient Account Number:</b></label>
-                                        <input
-                                            type="number"
-                                            className="form-control"
-                                            id="exampleInputPassword1"
-                                            placeholder="Account Number"
-                                            onChange={this.receipntchangeHndler}
-                                            value={this.state.receipnt}
-                                        />
-
-                                        <label for="exampleInputPassword1"><b>Transaction Password:</b></label>
-                                        <input
-                                            type="password"
-                                            className="form-control"
-                                            id="exampleInputPassword1"
-                                            placeholder="Enter Transaction Password"
-                                            onChange={this.transactionPasswordchangeHndler}
-                                            value={this.state.transactionPassword}
-                                        />
+                                        /> 
                                     </div>
                                     <button
                                         className="btn btn-danger"
                                         id="loginbtn"
                                         onClick={this.submitHandler}
                                     >
-                                        Send Money
+                                        Proceed to Recharge
                       </button>
                                 </div>
                             </div>
@@ -125,6 +122,59 @@ class Recharge extends React.Component {
             <>
             <DashNav/>
             {this.renderRecharge()}
+            </>
+        )
+    }
+
+    submitHandler = () => {
+        document.getElementById('loginbtn').innerText = "Recharge in Progress..."
+        console.log(this.state)
+        this.props.dispatch(rechargeandbill(this.state))
+    }
+
+    renderRegion = () => {
+        return(
+            <>
+                <select className="rechargeselect" onChange={this.circlechangeHndler}>
+                    <option value="">Select Circle</option>
+                    <option value="Andhra Pradesh & Telangana">Andhra Pradesh & Telangana</option>
+                    <option value="Assam">Assam</option>
+                    <option value="Bihar & Jharkhand">Bihar & Jharkhand</option>
+                    <option value="Chennai">Chennai</option>
+                    <option value="Delhi NCR">Delhi NCR</option>
+                    <option value="Gujrat">Gujrat</option>
+                    <option value="Haryana">Haryana</option>
+                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                    <option value="Jammu Kashmir">Jammu Kashmir</option>
+                    <option value="Karnataka">Karnataka</option>
+                    <option value="Kerala">Kerala</option>
+                    <option value="Kolkata">Kolkata</option>
+                    <option value="Madhya Pradesh & Chhatisgarh">Madhya Pradesh & Chhatisgarh</option>
+                    <option value="Maharashtra & Goa">Maharashtra & Goa</option>
+                    <option value="Mumbai">Mumbai</option>
+                    <option value="North East">North East</option>
+                    <option value="Odisha">Odisha</option>
+                    <option value="Punjab">Punjab</option>
+                    <option value="Rajasthan">Rajasthan</option>
+                    <option value="Tamilnadu">Tamilnadu</option>
+                    <option value="UP East">UP East</option>
+                    <option value="UP West & Uttranchal">UP West & Uttranchal</option>
+                    <option value="West Bengal & Andaman Nicobar">West Bengal & Andaman Nicobar</option>
+                </select>
+            </>
+        )
+    }
+
+    renderOperator = () => {
+        return(
+            <>
+                <select className="rechargeselect" onChange={this.operatorchangeHndler}>
+                    <option value="">Select Operator</option>
+                    <option value="Airtel">Airtel</option>
+                    <option value="BSNL">BSNL</option>
+                    <option value="Jio">Jio</option>
+                    <option value="Vi">Vi</option>
+                </select>
             </>
         )
     }
@@ -158,7 +208,7 @@ class Recharge extends React.Component {
             .then((res) => res.json())
             .then((data) => {
                 if(document.getElementById('loginbtn')){
-                    document.getElementById('loginbtn').innerText = "Send Money"
+                    document.getElementById('loginbtn').innerText = "Proceed To Recharge"
                 }
                 this.setState({
                     account: data

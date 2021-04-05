@@ -7,7 +7,7 @@ const Trans = (props) => {
         return data.map((item) => {
             return(
                 <>
-                <tr>
+                <tr key={item._id}>
                     <th>{item.date.slice(0,10)}</th>
                     <th>{item.about}</th>
                     <th>{item.amount}</th>
@@ -22,7 +22,7 @@ const Trans = (props) => {
         <>
             <h6>Your Recent Transaction</h6>
             <div className="table-responsive trans2">
-                <table class="table table-bordered">
+                <table className="table table-bordered">
                     <thead>
                         <tr>
                             <th scope="col">Date</th>
