@@ -12,12 +12,13 @@ import SendMoney from "./Component/sendMoney/sendMoney"
 import Transaction from "./Component/Transaction/getTransaction"
 import Recharge from "./Component/RechargeandBill/recharge"
 import Bill from "./Component/RechargeandBill/bill"
+import UpdatePassword from "./Component/User/updatePassword"
 
 const Routing = () => {
   return (
     <Provider store={Store}>
       <BrowserRouter>
-        <Route exact  path="/" component={DevPage} />
+        <Route exact  path="/" component={Home} />
         <Route path="/home" component={Home} />
         <Route path="/login" component={Home} />
         <Route path="/register" component={Register} />
@@ -29,6 +30,7 @@ const Routing = () => {
         <Route path="/transactions" component={Transaction} />
         <Route path="/mobilerecharge" component={Recharge} />
         <Route path="/paybill" component={Bill} />
+        <Route path="/updatepassword" component={UpdatePassword} />
       </BrowserRouter>
     </Provider>
   );

@@ -6,7 +6,6 @@ import { getTransaction } from "../../Action/transactionAction"
 import "./transaction.css"
 import Loader from "../../loader.svg";
 
-
 class Transaction extends React.Component {
     constructor() {
         super();
@@ -75,7 +74,7 @@ class Transaction extends React.Component {
                                 </div>
                                 <div className="col-md-9">
                                     <div className="table-responsive trans2">
-                                        <table class="table table-bordered">
+                                        <table class="table table-bordered" id="myTable">
                                             <thead>
                                                 <tr>
                                                     <th scope="col">Date</th>
