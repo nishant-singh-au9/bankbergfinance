@@ -286,6 +286,9 @@ class Register extends React.Component {
               <div className="centered">
                 <h1>Bank Berg Finance</h1>
                 <p>One Stop Solution For All Your Banking Needs</p>
+                <p className="registerp">
+                  Click Here to Login : <Link to="/login">Login</Link>
+                </p>
               </div>
             </div>
             {this.renderform()}

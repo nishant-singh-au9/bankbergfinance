@@ -11,14 +11,14 @@ class Recharge extends React.Component {
         super();
 
         this.state = {
-            amount: 150,
+            amount: "",
             operator: "",
             number: "7979868224",
             circle: "",
             type: "Mobile Recharge",
             err: "",
             account: "",
-            transactionPassword: "987654321"
+            transactionPassword: ""
         }
     }
 
