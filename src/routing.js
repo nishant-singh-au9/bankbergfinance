@@ -13,6 +13,7 @@ import Transaction from "./Component/Transaction/getTransaction"
 import Recharge from "./Component/RechargeandBill/recharge"
 import Bill from "./Component/RechargeandBill/bill"
 import UpdatePassword from "./Component/User/updatePassword"
+import Cheque from "./Component/Cheque/cheque"
 
 const Routing = () => {
   return (
@@ -31,6 +32,7 @@ const Routing = () => {
         <Route path="/mobilerecharge" component={Recharge} />
         <Route path="/paybill" component={Bill} />
         <Route path="/updatepassword" component={UpdatePassword} />
+        <Route path="/cheque" component={Cheque} />
       </BrowserRouter>
     </Provider>
   );

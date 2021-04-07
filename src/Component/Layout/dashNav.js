@@ -73,6 +73,8 @@ const DashNav = () => {
                 <Link className="navlink" to="/transactions">Get Statements</Link>
                 <br/>
                 <Link className="navlink" to="/updatepassword">Update Password</Link>
+                <br/>
+                <Link className="navlink" to="/cheque">Order Cheque</Link>
                 </div>
               </div>
             </li>
