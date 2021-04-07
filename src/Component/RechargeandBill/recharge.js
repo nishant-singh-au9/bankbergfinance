@@ -55,77 +55,73 @@ class Recharge extends React.Component {
 
     renderRecharge = () => {
         if (sessionStorage.getItem("ltk")) {
-            if (this.props.success === "") {
-                if (this.state.account) {
-                    return (
-                        <>
-                            <div className="loginform">
-                                <div className="card" id="logincard">
+            if (this.state.account) {
+                return (
+                    <>
+                        <div className="loginform">
+                            <div className="card" id="logincard">
+                                <center>
+                                    <h2>Mobile Recharge</h2>
+                                </center>
+                                <div className="form-group">
+                                    <h4>Hi {this.state.account.name},</h4>
+                                    <span>Current Balance: {this.state.account.balance}</span>
+                                    <p>Money will be debited from Account: {this.state.account.account}</p>
                                     <center>
-                                        <h2>Mobile Recharge</h2>
+                                        <p style={{ color: "red", fontWeight: "bold" }}>{this.props.err}</p>
+                                        <p style={{ color: "red", fontWeight: "bold" }}>{this.state.err}</p>
+                                        <p style={{ color: "green", fontWeight: "bold" }}>{this.props.succ}</p>
                                     </center>
-                                    <div className="form-group">
-                                        <h4>Hi {this.state.account.name},</h4>
-                                        <span>Current Balance: {this.state.account.balance}</span>
-                                        <p>Money will be debited from Account: {this.state.account.account}</p>
-                                        <center>
-                                            <p style={{ color: "red", fontWeight: "bold" }}>{this.props.err}</p>
-                                            <p style={{ color: "red", fontWeight: "bold" }}>{this.state.err}</p>
-                                            <p style={{ color: "green", fontWeight: "bold" }}>{this.props.succ}</p>
-                                        </center>
 
-                                        <label htmlFor="exampleInputPassword1"><b>Number:</b></label>
-                                        <input
-                                            type="number"
-                                            className="form-control"
-                                            id="exampleInputPassword1"
-                                            placeholder="Enter Mobile Number"
-                                            onChange={this.numberchangeHndler}
-                                            value={this.state.number}
-                                            style={{ marginBottom: "10px" }}
-                                        />
-                                        {this.renderOperator()}
-                                        {this.renderRegion()}<br />
-                                        <label htmlFor="exampleInputPassword1"><b>Amount:</b></label>
-                                        <input
-                                            type="number"
-                                            className="form-control"
-                                            id="exampleInputPassword1"
-                                            placeholder="Enter Amount"
-                                            onChange={this.amountchangeHndler}
-                                            value={this.state.amount}
-                                        />
+                                    <label htmlFor="exampleInputPassword1"><b>Number:</b></label>
+                                    <input
+                                        type="number"
+                                        className="form-control"
+                                        id="exampleInputPassword1"
+                                        placeholder="Enter Mobile Number"
+                                        onChange={this.numberchangeHndler}
+                                        value={this.state.number}
+                                        style={{ marginBottom: "10px" }}
+                                    />
+                                    {this.renderOperator()}
+                                    {this.renderRegion()}<br />
+                                    <label htmlFor="exampleInputPassword1"><b>Amount:</b></label>
+                                    <input
+                                        type="number"
+                                        className="form-control"
+                                        id="exampleInputPassword1"
+                                        placeholder="Enter Amount"
+                                        onChange={this.amountchangeHndler}
+                                        value={this.state.amount}
+                                    />
 
-                                        <label htmlFor="exampleInputPassword1"><b>Transaction Password:</b></label>
-                                        <input
-                                            type="password"
-                                            className="form-control"
-                                            id="exampleInputPassword1"
-                                            placeholder="Enter Transaction Password"
-                                            onChange={this.transactionPasswordchangeHandler}
-                                            value={this.state.transactionPassword}
-                                        />
-                                    </div>
-                                    <button
-                                        className="btn btn-danger"
-                                        id="loginbtn"
-                                        onClick={this.submitHandler}
-                                    >
-                                        Proceed to Recharge
-                      </button>
+                                    <label htmlFor="exampleInputPassword1"><b>Transaction Password:</b></label>
+                                    <input
+                                        type="password"
+                                        className="form-control"
+                                        id="exampleInputPassword1"
+                                        placeholder="Enter Transaction Password"
+                                        onChange={this.transactionPasswordchangeHandler}
+                                        value={this.state.transactionPassword}
+                                    />
                                 </div>
+                                <button
+                                    className="btn btn-danger"
+                                    id="loginbtn"
+                                    onClick={this.submitHandler}
+                                >
+                                    Proceed to Recharge
+                      </button>
                             </div>
-                        </>
-                    );
-                } else {
-                    return (
-                        <>
-                            <center><img src={Loader} alt="loader" /></center>
-                        </>
-                    )
-                }
+                        </div>
+                    </>
+                );
             } else {
-                this.props.history.push("/dashboard");
+                return (
+                    <>
+                        <center><img src={Loader} alt="loader" /></center>
+                    </>
+                )
             }
         } else {
             this.props.history.push("/login");
@@ -143,12 +139,12 @@ class Recharge extends React.Component {
 
     submitHandler = () => {
         document.getElementById('loginbtn').innerText = "Recharge in Progress..."
-        let {amount,operator,number,circle,type,transactionPassword} = this.state
-        if(!amount || !operator || !number || !circle || !type || !transactionPassword){
+        let { amount, operator, number, circle, type, transactionPassword } = this.state
+        if (!amount || !operator || !number || !circle || !type || !transactionPassword) {
             this.setState({
                 err: 'All Fields are Required'
             })
-        }else{
+        } else {
             let details = {
                 amount: amount,
                 operator: operator,
@@ -236,8 +232,10 @@ class Recharge extends React.Component {
         })
             .then((res) => res.json())
             .then((data) => {
-                if (document.getElementById('loginbtn')) {
-                    document.getElementById('loginbtn').innerText = "Proceed To Recharge"
+                if (this.props.success === "done") {
+                    if (document.getElementById('loginbtn')) {
+                        document.getElementById('loginbtn').innerText = "Proceed To Recharge"
+                    }
                 }
                 this.setState({
                     account: data
@@ -263,7 +261,7 @@ function mapStatetoProps(state) {
                 succ: "", success: ""
             }
         } else {
-            return { err: "", succ: state.Recharge.message, success: "" }
+            return { err: "", succ: state.Recharge.message, success: "done" }
         }
     }
 }
