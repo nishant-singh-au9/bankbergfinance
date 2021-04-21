@@ -10,9 +10,6 @@ export function loginUser(user) {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.token) {
-          sessionStorage.setItem("ltk", data.token);
-        }
         dispatch(setUser(data));
       });
   };
@@ -76,6 +73,38 @@ export function updatePassword(user) {
 export function passwordupdate(data) {
   return {
     type: "UPDATE_PASSWORD",
+    payload: data
+  };
+}
+
+
+
+//login with otp 
+
+export function otplogin(user) {
+  return function (dispatch) {
+    fetch("https://bankbergfinanceapi.herokuapp.com/api/users/verifyOtp", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(user)
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("data>>>>>>>>>>",data)
+        if (data.token) {
+          sessionStorage.setItem("ltk", data.token);
+        }
+        dispatch(loginotp(data));
+      });
+  };
+}
+
+export function loginotp(data) {
+  return {
+    type: "OTP_LOGIN",
     payload: data
   };
 }

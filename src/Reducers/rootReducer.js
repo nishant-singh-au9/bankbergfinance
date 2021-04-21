@@ -9,7 +9,8 @@ import Transaction from "./transactionReducer"
 import Recharge from "./rechargeBillReducer"
 import UpdatePass from "./upadtePasReducer"
 import Cheque from "./chequeReducer"
+import OtpLogin from "./loginOtpReducer"
 
-const rootReducer = combineReducers({ Login, Register, Snap, DebitCard, AddMoney, SendMoney,Transaction,Recharge, UpdatePass, Cheque});
+const rootReducer = combineReducers({ Login, Register, Snap, DebitCard, AddMoney, SendMoney,Transaction,Recharge, UpdatePass, Cheque, OtpLogin});
 
 export default rootReducer;

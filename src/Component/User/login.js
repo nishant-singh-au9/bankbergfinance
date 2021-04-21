@@ -7,14 +7,15 @@ import validator from "validator";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loginUser } from "../../Action/authActions";
+import OtpLogin from "./optLogin"
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "",
-      password: "",
-      err: ""
+      email: "mixingbeast01@gmail.com",
+      password: "123456789",
+      err: "",
     };
     this.err1 = "";
   }
@@ -46,13 +47,14 @@ class Login extends Component {
           email: this.state.email,
           password: this.state.password
         };
-        document.getElementById("loginbtnl").innerText = "Taking you in..";
+        document.getElementById("loginbtnl").innerText = "Sending OTP..";
         this.props.dispatch(loginUser(user));
       }
     }
   };
 
   renderLogin = () => {
+    console.log(this.props)
     if (this.props.passerr || this.props.emailerr) {
       if (document.getElementById("loginbtnl")) {
         document.getElementById("loginbtnl").innerText = "Login";
@@ -87,38 +89,52 @@ class Login extends Component {
                     <center>
                       <img src={Avatar} alt="avatar" id="avatarimg" />
                     </center>
-                    <center>
-                      <h3>Login</h3>
-                    </center>
-                    <h6 className="error">{this.props.emailerr}</h6>
-                    <h6 className="error">{this.state.err}</h6>
-                    <p className="loginp">Email</p>
-                    <input
-                      type="text"
-                      placeholder="Enter your Email"
-                      value={this.state.email}
-                      onChange={this.emailChangeHandler}
-                    />
-                    <h6 className="error">{this.props.passerr}</h6>
-                    <p className="loginp">Password</p>
-                    <input
-                      type="password"
-                      placeholder="Enter your Password"
-                      value={this.state.password}
-                      onChange={this.passwordChangeHandler}
-                      id="myInput"
-                    />
-                    <br />
-                    <button
-                      className="btn btn-primary"
-                      id="loginbtnl" 
-                      onClick={this.LoginHandler}
-                    >
-                      Login
-                    </button>
-                    <p className="loginp">
-                      Don't Have Account <Link to="/register">Click Here</Link>
-                    </p>
+                    {(() => {
+                      if (!this.props.otpSent) {
+                        return (
+                          <>
+                            <center>
+                              <h3>Login</h3>
+                            </center>
+                            <h6 className="error">{this.props.emailerr}</h6>
+                            <h6 className="error">{this.state.err}</h6>
+                            <p className="loginp">Email</p>
+                            <input
+                              type="text"
+                              placeholder="Enter your Email"
+                              value={this.state.email}
+                              onChange={this.emailChangeHandler}
+                            />
+                            <h6 className="error">{this.props.passerr}</h6>
+                            <p className="loginp">Password</p>
+                            <input
+                              type="password"
+                              placeholder="Enter your Password"
+                              value={this.state.password}
+                              onChange={this.passwordChangeHandler}
+                              id="myInput"
+                            />
+                            <br />
+                            <button
+                              className="btn btn-primary"
+                              id="loginbtnl"
+                              onClick={this.LoginHandler}
+                            >
+                              Login
+                            </button>
+                            <p className="loginp">
+                              Don't Have Account <Link to="/register">Click Here</Link>
+                            </p>
+                          </>
+                        )
+                      } else {
+                        return (
+                          <>
+                            <OtpLogin email={this.state.email}/>
+                          </>
+                        )
+                      }
+                    })()}
                   </div>
                 </div>
               </div>
@@ -139,26 +155,30 @@ function mapStatetoProps(state) {
     return {
       token: null,
       passerr: "",
-      emailerr: ""
+      emailerr: "",
+      otpSent: false
     };
   } else {
     if (state.Login.passwordincorrect) {
       return {
         token: null,
         passerr: "Incorrect Password",
-        emailerr: ""
+        emailerr: "",
+        otpSent: false
       };
     } else if (state.Login.emailnotfound) {
       return {
         token: null,
         passerr: "",
-        emailerr: "Email is not registered"
+        emailerr: "Email is not registered",
+        otpSent: false
       };
     } else {
       return {
-        token: state.Login.token,
+        token: null,
         passerr: "",
-        emailerr: ""
+        emailerr: "",
+        otpSent: true
       };
     }
   }
